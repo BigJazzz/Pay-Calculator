@@ -40,7 +40,6 @@ if($phol == 'on') {
         $return = dayof($start,$finish,$lulb,$buildup);
         $units = $return[0];
         if($OTcount > 9 && $fn == 'Short') {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday @ 100%';
@@ -48,7 +47,6 @@ if($phol == 'on') {
             $rate = 1;
         }
         elseif($OTcount > 10 && $fn == 'Long') {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday @ 100%';
@@ -56,7 +54,6 @@ if($phol == 'on') {
             $rate = 1;
         }
         elseif($postday == 'Sat') {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday @ 100%';
@@ -64,7 +61,6 @@ if($phol == 'on') {
             $rate = 1;
         }
         elseif($callout == 'on') {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday under 24 hours @ 75%';
@@ -72,7 +68,6 @@ if($phol == 'on') {
             $rate = 0.75;
         }
         else {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday @ 50%';
@@ -93,7 +88,6 @@ if($phol == 'on') {
         $return = overnight($start,$finish,$lulb,$buildup);
         $units = $return[0];
         if($OTcount > 9 && $fn == 'Short') {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday @ 100%';
@@ -101,7 +95,6 @@ if($phol == 'on') {
             $rate = 1;
         }
         elseif($OTcount > 10 && $fn == 'Long') {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday @ 100%';
@@ -109,7 +102,6 @@ if($phol == 'on') {
             $rate = 1;
         }
         elseif($postday == 'Sat') {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday @ 100%';
@@ -117,7 +109,6 @@ if($phol == 'on') {
             $rate = 1;
         }
         elseif($callout == 'on') {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday under 24 hours @ 75%';
@@ -125,7 +116,6 @@ if($phol == 'on') {
             $rate = 0.75;
         }
         else {
-            $payslip[$detail][] = $date;
             $payslip[$detail][] = $units;
             $payslip[$detail][] = $rate;
             $detail = 'Public holiday @ 50%';
@@ -237,7 +227,6 @@ elseif($postday == 'Sat' && $OTcount > 9 && $fn == 'Short') { // Saturday OT on 
         $detail = 'OT @ 200%';
         $units = $return[0];
         $rate = 2;
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -258,7 +247,6 @@ elseif($postday == 'Sat' && $OTcount > 10 && $fn == 'Long') { // Saturday OT on 
         $detail = 'OT @ 200%';
         $units = $return[0];
         $rate = 2;
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -274,7 +262,6 @@ elseif($postday == 'Sat' && $OTcount > 10 && $fn == 'Long') { // Saturday OT on 
         $detail = 'OT @ 200%';
         $units = $return[0];
         $rate = 2;
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -302,7 +289,6 @@ elseif($OTcount > 9 && $OTcount < 12 && $fn == 'Short') { // Short 150% OT shift
             $units = $return[0];
             $rate = 1.5;
         }
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -345,7 +331,6 @@ elseif($OTcount > 9 && $OTcount < 12 && $fn == 'Short') { // Short 150% OT shift
             $units = $return[0];
             $rate = 1.5;
         }
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -386,7 +371,6 @@ elseif($OTcount == 12 && $fn == 'Short') { // Short 200% OT shift
         $detail = 'OT @ 200%';
         $units = $return[0];
         $rate = 2;
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -402,7 +386,6 @@ elseif($OTcount == 12 && $fn == 'Short') { // Short 200% OT shift
         $detail = 'OT @ 200%';
         $units = $return[0];
         $rate = 200;
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -423,7 +406,6 @@ elseif($OTcount > 10 && $fn == 'Long') { // Long 150% OT shift
         $detail = 'OT @ 150%';
         $units = $return[0];
         $rate = 1.5;
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -445,7 +427,6 @@ elseif($OTcount > 10 && $fn == 'Long') { // Long 150% OT shift
         $detail = 'OT @ 150%';
         $units = $return[0]+$return[1];
         $rate = 1.5;
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -472,7 +453,6 @@ elseif($postday == 'Sat') { // Saturday calculations
         $detail = 'Saturday @ 150%';
         $units = $return[0];
         $rate = 1.5;
-        $payslip[$date][] = $date;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -485,27 +465,26 @@ elseif($postday == 'Sat') { // Saturday calculations
     }
     elseif($start > $finish) {
         $return = overnight($start,$finish,$lulb,$buildup);
-        $detail = 'Saturday @ 150%';
+        $detail = 'Saturday @ 50%';
         $units = $return[0];
-        $rate = 1.5;
-        $payslip[$date][] = $date;
+        $rate = 0.5;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
-        $detail = 'Ordinary Hours';
-        $units = $return[2];
+        $detail = 'Sunday @ 100%';
+        $units = $return[1];
         $rate = 1;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
         $detail = 'Scheduled OT @ 150%';
-        $units = $return[3];
+        $units = $return[2];
         $rate = 1.5;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
         $detail = 'Scheduled OT @ 200%';
-        $units = $return[4];
+        $units = $return[3];
         $rate = 2;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
@@ -519,19 +498,16 @@ elseif($postday == 'Fri') { // Friday calculations
     if($start < $finish) {
         $return = dayof($start,$finish,$lulb,$buildup);
         if($callout == 'on') {
-            $detail = 'Call out @ 125%';
+            $detail = 'Call out @ 25%';
             $units = $return[0];
-            $rate = 1.25;
+            $rate = 0.25;
+            $payslip[$date][] = $detail;
+            $payslip[$date][] = $units;
+            $payslip[$date][] = $rate;
         }
         else {
-            $detail = 'Ordinary hours';
-            $units = $return[0];
-            $rate = 1;
+            $payslip['Ordinary hours'][] += $return[0];
         }
-        $payslip[$date][] = $date;
-        $payslip[$date][] = $detail;
-        $payslip[$date][] = $units;
-        $payslip[$date][] = $rate;
         $detail = 'Scheduled OT @ 150%';
         $units = $return[1];
         $rate = 1.5;
@@ -548,22 +524,19 @@ elseif($postday == 'Fri') { // Friday calculations
     elseif($start > $finish) {
         $return = overnight($start,$finish,$lulb,$buildup);
         if($callout == 'on') {
-            $detail = 'Call out @ 125%';
+            $detail = 'Call out @ 25%';
             $units = $return[0];
-            $rate = 1.25;
+            $rate = 0.25;
+            $payslip[$date][] = $detail;
+            $payslip[$date][] = $units;
+            $payslip[$date][] = $rate;
         }
         else {
-            $detail = 'Ordinary hours';
-            $units = $return[0];
-            $rate = 1;
+            $payslip['Ordinary hours'][] += $return[0];
         }
-        $payslip[$date][] = $date;
-        $payslip[$date][] = $detail;
-        $payslip[$date][] = $units;
-        $payslip[$date][] = $rate;
-        $detail = 'Saturday @ 150%';
+        $detail = 'Saturday @ 50%';
         $units = $return[1];
-        $rate = 1.5;
+        $rate = 0.5;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -586,7 +559,7 @@ elseif($postday == 'Fri') { // Friday calculations
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
-            $payslip[$date][] = $nsdetail;
+        $payslip[$date][] = $nsdetail;
         $payslip[$date][] = $nsunits;
         $payslip[$date][] = $nsrate;
     }
@@ -594,10 +567,9 @@ elseif($postday == 'Fri') { // Friday calculations
 elseif($start < $finish) { // Standard hours same day
     if($callout == 'on') {
         $return = dayof($start,$finish,$lulb,$buildup);
-        $detail = 'Call out @ 125%';
+        $detail = 'Call out @ 25%';
         $units = $return[0];
-        $rate = 1.25;
-        $payslip[$date][] = $date;
+        $rate = 0.25;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -616,13 +588,7 @@ elseif($start < $finish) { // Standard hours same day
     }
     else{
         $return = dayof($start,$finish,$lulb,$buildup);
-        $detail = 'Ordinary hours';
-        $units = $return[0];
-        $rate = 1;
-        $payslip[$date][] = $date;
-        $payslip[$date][] = $detail;
-        $payslip[$date][] = $units;
-        $payslip[$date][] = $rate;
+        $payslip['Ordinary hours'][] += $return[0];
         $detail = 'Scheduled OT @ 150%';
         $units = $return[1];
         $rate = 1.5;
@@ -645,7 +611,7 @@ elseif($start < $finish) { // Standard hours same day
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
-            $payslip[$date][] = $nsdetail;
+        $payslip[$date][] = $nsdetail;
         $payslip[$date][] = $nsunits;
         $payslip[$date][] = $nsrate;
     }
@@ -653,16 +619,15 @@ elseif($start < $finish) { // Standard hours same day
 elseif($start > $finish) { // Standard hours overnight
     if($callout == 'on') {
         $return = overnight($start,$finish,$lulb,$buildup);
-        $detail = 'Call out @ 125%';
+        $detail = 'Call out @ 25%';
         $units = $return[0];
-        $rate = 1.25;
-        $payslip[$date][] = $date;
+        $rate = 0.25;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
-        $detail = 'Saturday @ 150%';
+        $detail = 'Saturday @ 50%';
         $units = $return[1];
-        $rate = 1.5;
+        $rate = 0.5;
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
@@ -675,13 +640,7 @@ elseif($start > $finish) { // Standard hours overnight
     }
     else {
         $return = overnight($start,$finish,$lulb,$buildup);
-        $detail = 'Ordinary hours';
-        $units = $return[0]+$return[1];
-        $rate = 1;
-        $payslip[$date][] = $date;
-        $payslip[$date][] = $detail;
-        $payslip[$date][] = $units;
-        $payslip[$date][] = $rate;
+        $payslip['Ordinary hours'][] += $return[0]+$return[1];
         $detail = 'Scheduled OT @ 150%';
         $units = $return[2];
         $rate = 1.5;
