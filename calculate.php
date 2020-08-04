@@ -98,6 +98,7 @@ echo '<td style="width:15%;" class="payslip">Units';
 echo '<td style="width:15%;" class="payslip">Rate</td>';
 echo '<td style="width:15%;" class="payslip">Total</td>';
 echo '</tr>';
+// Displays ADO adjustment
 if($fn == 'Short') {
     echo '<tr>';
     echo '<td class="payslip"></td>';
@@ -122,6 +123,7 @@ else {
     echo '</tr>';
     $totalO += $totalx;
 }
+// Displays total Ordinary Hours
 $units = array_sum($payslip['Ordinary hours']);
 echo '<tr>';
 echo '<td class="payslip"></td>';
@@ -139,10 +141,11 @@ foreach($payslip as $key => $value) {
     }
 }
 $date = array_keys($payslip);
-$j = 0; // 0
+$j = 0;
+// Displays the poyslip tables
 for($i = 0; $i < count($payslip); $i++) {
     echo '<tr>';
-    echo '<td class="payslip">'.$date[$i].'</td>';
+    echo '<td class="payslip">'.$date[$i].'</td>'; // Date
     echo '<td colspan="4">&nbsp;</td>';
     echo '</tr>';
     $k = 1;
@@ -151,15 +154,15 @@ for($i = 0; $i < count($payslip); $i++) {
         if(!empty($data[$k]) && $data[$k] != 0) {
             echo '<tr>';
             echo '<td>&nbsp;</td>';
-            echo '<td class="payslip">'.$data[$j].'</td>';
+            echo '<td class="payslip">'.$data[$j].'</td>'; // Detail
             ++$j;
-            echo '<td class="payslip">'.$data[$j].'</td>';
+            echo '<td class="payslip">'.$data[$j].'</td>'; // Units
             ++$j;
             $ratex = number_format($data[$j]*$payrate,2);
-            echo '<td class="payslip dollars">'.$ratex.'</td>';
+            echo '<td class="payslip dollars">'.$ratex.'</td>'; // Rate
             --$j;
             $totalx = number_format($ratex*$data[$j],2);
-            echo '<td class="payslip dollars">'.$totalx.'</td>';
+            echo '<td class="payslip dollars">'.$totalx.'</td>'; // Total
             $totalO += $totalx;
             $j += 2;
             echo '</tr>';
