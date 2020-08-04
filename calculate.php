@@ -133,171 +133,40 @@ $totalx = number_format($ratex*$units,2);
 echo '<td class="payslip dollars">'.$totalx.'</td>';
 echo '</tr>';
 $totalO += $totalx;
-$i = 1;
-foreach($payslip as $date => $value) {
-    if($date != 'Ordinary hours' && $value[0] != 'Ordinary hours') {
-        echo '<tr>';
-        echo '<td class="payslip">'.$date.'</td>';
-        echo '<td class="payslip">'.$value[0].'</td>';
-        foreach($value as $data) {
-            if($value[1] != 0) {
-                echo '<td class="payslip">'.$value[1].'</td>';
-                $ratex = number_format($value[2]*$payrate,2);
-                echo '<td class="payslip dollars">'.$ratex.'</td>';
-                $totalx = number_format($ratex*$value[1],2);
-                echo '<td class="payslip dollars">'.$totalx.'</td>';
-                $totalO += $totalx;
-                echo '</tr>';
-            }
-            elseif($value[4] != 0) {
-                echo '<tr>';
-                echo '<td class="payslip">&nbsp;Test</td>';
-                echo '<td class="payslip">'.$value[3].'</td>';
-                echo '<td class="payslip">'.$value[4].'</td>';
-                $ratex = number_format($value[5]*$payrate,2);
-                echo '<td class="payslip dollars">'.$ratex.'</td>';
-                $totalx = number_format($ratex*$value[4],2);
-                echo '<td class="payslip dollars">'.$totalx.'</td>';
-                $totalO += $totalx;
-                echo '</tr>';
-            }
-            elseif($value[7] != 0) {
-                echo '<tr>';
-                echo '<td class="payslip">&nbsp;</td>';
-                echo '<td class="payslip">'.$value[6].'</td>';
-                echo '<td class="payslip">'.$value[7].'</td>';
-                $ratex = number_format($value[8]*$payrate,2);
-                echo '<td class="payslip dollars">'.$ratex.'</td>';
-                $totalx = number_format($ratex*$value[7],2);
-                echo '<td class="payslip dollars">'.$totalx.'</td>';
-                $totalO += $totalx;
-                echo '</tr>';
-            }
-            elseif($value[10] != 0) {
-                echo '<tr>';
-                echo '<td class="payslip">&nbsp;</td>';
-                echo '<td class="payslip">'.$value[6].'</td>';
-                echo '<td class="payslip">'.$value[7].'</td>';
-                $ratex = number_format($value[8]*$payrate,2);
-                echo '<td class="payslip dollars">'.$ratex.'</td>';
-                $totalx = number_format($ratex*$value[7],2);
-                echo '<td class="payslip dollars">'.$totalx.'</td>';
-                $totalO += $totalx;
-                echo '</tr>';
-            }
-            elseif($value[13] != 0) {
-                echo '<tr>';
-                echo '<td class="payslip">&nbsp;</td>';
-                echo '<td class="payslip">'.$value[6].'</td>';
-                echo '<td class="payslip">'.$value[7].'</td>';
-                $ratex = number_format($value[8]*$payrate,2);
-                echo '<td class="payslip dollars">'.$ratex.'</td>';
-                $totalx = number_format($ratex*$value[7],2);
-                echo '<td class="payslip dollars">'.$totalx.'</td>';
-                $totalO += $totalx;
-                echo '</tr>';
-            }
-        }
+foreach($payslip as $key => $value) {
+    if($key == 'Ordinary hours') {
+        unset($payslip['Ordinary hours']);
     }
 }
-// $j = 1;
-// while($j < 15) {
-//     if($payslip[$k] != 'Ordinary hours') {
-//         //echo 'True';
-//     }
-//
-//     $l = 0;
-//     $k = 0;
-//     echo '<tr>';
-//     echo '<td class="payslip">'.$payslip[$date].'</td>';
-//     while($k < 14) {
-//         echo '<td class="payslip">'.$payslip[$k][$l++].'</td>';
-//         echo '<td class="payslip">'.$payslip[$k][$l++].'</td>';
-//         $ratex = number_format($payslip[$k][$l]*$payrate,2);
-//         echo '<td class="payslip dollars">'.$ratex.'</td>';
-//         $totalx = number_format($ratex*$payslip[$k][--$l],2);
-//         echo '<td class="payslip dollars">'.$totalx.'</td>';
-//         echo '</tr>';
-//         $totalO += $totalx;
-//         $l += 2;
-//         $k++;
-//     }
-//
-//
-//     // if($payslip[$j][2] != 0 || $payslip[$j][2] != '' || isset($payslip[$j][2])) { // Monday 1
-//     // echo '<tr>';
-//     // echo '<td class="payslip">'.$payslip[$j][0].'</td>';
-//     // echo '<td class="payslip">'.$payslip[$j][1].'</td>';
-//     // echo '<td class="payslip">'.$payslip[$j][2].'</td>';
-//     // $ratex = number_format($payslip[$j][3]*$payrate,2);
-//     // echo '<td class="payslip dollars">'.$ratex.'</td>';
-//     // $totalx = number_format($ratex*$payslip[$j][2],2);
-//     // echo '<td class="payslip dollars">'.$totalx.'</td>';
-//     // echo '</tr>';
-//     // $totalO += $totalx;
-//     // }
-//     // if($payslip[$j][6] != 0) {
-//     // echo '<tr>';
-//     // echo '<td class="payslip"></td>';
-//     // echo '<td class="payslip">'.$payslip[$j][5].'</td>';
-//     // echo '<td class="payslip">'.$payslip[$j][6].'</td>';
-//     // $ratex = number_format($payslip[$j][7]*$payrate,2);
-//     // echo '<td class="payslip dollars">'.$ratex.'</td>';
-//     // $totalx = number_format($ratex*$payslip[$j][6],2);
-//     // echo '<td class="payslip dollars">'.$totalx.'</td>';
-//     // echo '</tr>';
-//     // $totalO += $totalx;
-//     // }
-//     // if($payslip[$j][10] != 0) {
-//     // echo '<tr>';
-//     // echo '<td class="payslip"></td>'; //Date
-//     // echo '<td class="payslip">'.$payslip[$j][9].'</td>'; // Details
-//     // echo '<td class="payslip">'.$payslip[$j][10].'</td>'; // Units
-//     // $ratex = number_format($payslip[$j][11]*$payrate,2);
-//     // echo '<td class="payslip dollars">'.$ratex.'</td>'; // Rate
-//     // $totalx = number_format($ratex*$payslip[$j][10],2);
-//     // echo '<td class="payslip dollars">'.$totalx.'</td>'; // Total
-//     // echo '</tr>';
-//     // $totalO += $totalx;
-//     // }
-//     // if($payslip[$j][14] != 0) {
-//     // echo '<tr>';
-//     // echo '<td class="payslip"></td>';
-//     // echo '<td class="payslip">'.$payslip[$j][13].'</td>';
-//     // echo '<td class="payslip">'.$payslip[$j][14].'</td>';
-//     // $ratex = number_format($payslip[$j][15],2);
-//     // echo '<td class="payslip dollars">'.$ratex.'</td>';
-//     // $totalx = number_format($ratex*$payslip[$j][14],2);
-//     // echo '<td class="payslip dollars">'.$totalx.'</td>';
-//     // echo '</tr>';
-//     // $totalO += $totalx;
-//     // }
-//     // if($payslip[$j][18] != 0) {
-//     // echo '<tr>';
-//     // echo '<td class="payslip"></td>';
-//     // echo '<td class="payslip">'.$payslip[$j][17].'</td>';
-//     // echo '<td class="payslip">'.$payslip[$j][18].'</td>';
-//     // $ratex = number_format($payslip[$j][19],2);
-//     // echo '<td class="payslip dollars">'.$ratex.'</td>';
-//     // $totalx = number_format($ratex*$payslip[$j][18],2);
-//     // echo '<td class="payslip dollars">'.$totalx.'</td>';
-//     // echo '</tr>';
-//     // $totalO += $totalx;
-//     // }
-//     // if($payslip[$j][22] != 0) {
-//     // echo '<tr>';
-//     // echo '<td class="payslip"></td>';
-//     // echo '<td class="payslip">'.$payslip[$j][21].'</td>';
-//     // echo '<td class="payslip">'.$payslip[$j][22].'</td>';
-//     // $ratex = number_format($payslip[$j][23],2);
-//     // echo '<td class="payslip dollars">'.$ratex.'</td>';
-//     // $totalx = number_format($ratex*$payslip[$j][22],2);
-//     // echo '<td class="payslip dollars">'.$totalx.'</td>';
-//     // echo '</tr>';
-//     // $totalO += $totalx;
-//     // }
-//     $j++;
-// }
+$date = array_keys($payslip);
+$j = 0; // 0
+for($i = 0; $i < count($payslip); $i++) {
+    echo '<tr>';
+    echo '<td class="payslip">'.$date[$i].'</td>';
+    echo '<td colspan="4">&nbsp;</td>';
+    echo '</tr>';
+    $k = 1;
+    foreach($payslip as $data) {
+        echo $k.'<br>';
+        if(!empty($data[$k]) && $data[$k] != 0) {
+            echo '<tr>';
+            echo '<td>&nbsp;</td>';
+            echo '<td class="payslip">'.$data[$j].'</td>';
+            ++$j;
+            echo '<td class="payslip">'.$data[$j].'</td>';
+            ++$j;
+            $ratex = number_format($data[$j]*$payrate,2);
+            echo '<td class="payslip dollars">'.$ratex.'</td>';
+            --$j;
+            $totalx = number_format($ratex*$data[$j],2);
+            echo '<td class="payslip dollars">'.$totalx.'</td>';
+            $totalO += $totalx;
+            $j += 2;
+            echo '</tr>';
+        }
+        $k += 3;
+    }
+}
 echo '<tr><td class="payslip" style="font-weight:bold;">&nbsp;</td><td class="payslip">Total gross</td><td colspan="2" class="payslip">&nbsp;</td><td class="dollars payslip">$'.number_format($totalO,2).'</td></tr>';
 echo '</table></body></html>';
 ?>
