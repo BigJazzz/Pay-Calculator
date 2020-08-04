@@ -1,2 +1,2 @@
-# Pay-Calculator
+# Pay Calculator
 Sydney Trains Pay Calculator
