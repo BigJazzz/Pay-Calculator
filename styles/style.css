@@ -1,0 +1,82 @@
+body {
+    font-family: 'Darker Grotesque', sans-serif;
+}
+#body-outer {
+    position: relative;
+}
+#body-inner {
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    font-size: 18px;
+}
+#body {
+    margin: 5px;
+    font-size: 18px;
+}
+.empty {
+    width: 10px;
+}
+.centre {
+    text-align: center;
+}
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+.noborder {
+    border: 0px !important;
+    text-align: left !important;
+    background-color: white !important;
+}
+#data {
+    font-size: 20px;
+}
+#data .label {
+    font-weight: bold;
+}
+#timesheet .header {
+    background-color: white !important;
+}
+#timesheet td {
+    padding: 5px;
+    text-align: center;
+    border-right: 1px black solid;
+}
+#timesheet tr:first-child {
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+    font-weight: bold;
+}
+#timesheet tr:nth-child(even) {
+    background-color: #cecece;
+    border-bottom: 1px black solid;
+    border-top: 1px black solid;
+    border-left: 1px black solid;
+}
+#timesheet tr:nth-child(odd) {
+    background-color: #ffffff;
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+}
+#button {
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-size: 18px;
+}
+#payslip td.payslip {
+    padding-left: 5px;
+    border-bottom: 1px solid black;
+    padding-right: 5px;
+}
+table#payslip > tr:nth-last-child(2) {
+    text-align: right;
+}
+table#payslip > tr:last-child {
+    text-align: right;
+}
+.dollars {
+    text-align: right;
+}
