@@ -100,7 +100,7 @@ echo '<td style="width:15%;" class="payslip">Total</td>';
 echo '</tr>';
 if($fn == 'Short') {
     echo '<tr>';
-    echo '<td class="payslip"></td>';
+    echo '<td class="payslip"></td>'; 
     echo '<td class="payslip">ADO Adjustment</td>';
     echo '<td class="payslip">4</td>';
     $ratex = number_format($payrate,2);
