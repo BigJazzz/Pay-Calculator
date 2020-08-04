@@ -145,13 +145,12 @@ $j = 0;
 // Displays the poyslip tables
 for($i = 0; $i < count($payslip); $i++) {
     echo '<tr>';
-    echo '<td class="payslip">'.$date[$i].'</td>'; // Date
+    echo '<td class="payslip">'.$date[$i].'</td>'; // Date - run once per top level array
     echo '<td colspan="4">&nbsp;</td>';
     echo '</tr>';
     $k = 1;
     foreach($payslip as $data) {
-        echo $k.'<br>';
-        if(!empty($data[$k]) && $data[$k] != 0) {
+        if(!empty($data[$k]) && $data[$k] != 0) { // ############## This should only skip the loop if there's nothing to output, not skip to the next date entirely
             echo '<tr>';
             echo '<td>&nbsp;</td>';
             echo '<td class="payslip">'.$data[$j].'</td>'; // Detail
