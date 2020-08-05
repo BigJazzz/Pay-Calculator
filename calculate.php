@@ -72,9 +72,9 @@ while($i < 14) {
     }
     $ix++;
 }
-echo '<pre>';
-print_r($payslip);
-echo '</pre>';
+// echo '<pre>';
+// print_r($payslip);
+// echo '</pre>';
 $css = md5(date("H:i:s"));
 ?><!DOCTYPE html>
 <html>
