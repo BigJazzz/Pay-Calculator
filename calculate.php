@@ -135,6 +135,7 @@ echo '<td class="payslip dollars">'.$ratex.'</td>';
 $totalx = number_format($ratex*$units,2);
 echo '<td class="payslip dollars">'.$totalx.'</td>';
 echo '</tr>';
+$totalx = str_replace(',','',$totalx);
 $totalO += $totalx;
 foreach($payslip as $key => $value) {
     if($key == 'Ordinary hours') {
@@ -145,43 +146,46 @@ $date = array_keys($payslip);
 $countp = count($payslip);
 // Displays the poyslip tables
 for($i = 0; $i < $countp; $i++) {
-    echo '<tr>';
-    echo '<td class="payslip">'.$date[$i].'</td>'; // Date - run once per top level array
-    echo '<td colspan="4">&nbsp;</td>';
-    echo '</tr>';
-    $countd = count($payslip[$date[$i]]);
-    $k = 1;
-    for($j = 0; $j < $countd; $j++) {
-        if(!empty($payslip[$date[$i]][$k]) && $payslip[$date[$i]][$k] != 0) {
-            // $j = 0
-            $detailO = $payslip[$date[$i]][$j];
-            ++$j; // 1
-            $unitsO = $payslip[$date[$i]][$j];
-            ++$j; // 2
-            $rateO = $payslip[$date[$i]][$j];
-            if($detailO == 'Night shift' || $detailO == 'Morning shift' || $detailO == 'Afternoon shift' || $detailO == 'Cab/ETR' || $detailO == 'Security' || $detailO == 'Expenses > 10 hours') {
-                $ratex = number_format($rateO,2); // Rate for allowances
+    if($payslip[$date[$i]][1] != 0 && !empty($payslip[$date[$i]][1])) {
+        echo '<tr>';
+        echo '<td class="payslip">'.$date[$i].'</td>'; // Date - run once per top level array
+        echo '<td colspan="4">&nbsp;</td>';
+        echo '</tr>';
+        $countd = count($payslip[$date[$i]]);
+        $k = 1;
+        for($j = 0; $j < $countd; $j++) {
+            if(!empty($payslip[$date[$i]][$k]) && $payslip[$date[$i]][$k] != 0) {
+                // $j = 0
+                $detailO = $payslip[$date[$i]][$j];
+                ++$j; // 1
+                $unitsO = $payslip[$date[$i]][$j];
+                ++$j; // 2
+                $rateO = $payslip[$date[$i]][$j];
+                if($detailO == 'Night shift' || $detailO == 'Morning shift' || $detailO == 'Afternoon shift' || $detailO == 'Cab/ETR' || $detailO == 'Security' || $detailO == 'Expenses > 10 hours') {
+                    $ratex = number_format($rateO,2); // Rate for allowances
+                }
+                else {
+                    $ratex = number_format($rateO*$payrate,2); // Adjusted rate times payrate set by user
+                }
+                $totalx = number_format($ratex*$unitsO,2); // Total: adjusted rate times units
+                echo '<tr>';
+                echo '<td>&nbsp;</td>';
+                echo '<td class="payslip">'.$detailO.'</td>'; // Detail
+                echo '<td class="payslip">'.$unitsO.'</td>'; // Units
+                echo '<td class="payslip dollars">'.$ratex.'</td>'; // Rate
+                echo '<td class="payslip dollars">'.$totalx.'</td>'; // Total
+                echo '</tr>';
+                $totalx = str_replace(',','',$totalx);
+                $totalO += $totalx;
+                $k += 3;
             }
             else {
-                $ratex = number_format($rateO*$payrate,2); // Adjusted rate times payrate set by user
+                $j += 2;
+                $k += 3;
             }
-            $totalx = number_format($ratex*$unitsO,2); // Total: adjusted rate times units
-            echo '<tr>';
-            echo '<td>&nbsp;</td>';
-            echo '<td class="payslip">'.$detailO.'</td>'; // Detail
-            echo '<td class="payslip">'.$unitsO.'</td>'; // Units
-            echo '<td class="payslip dollars">'.$ratex.'</td>'; // Rate
-            echo '<td class="payslip dollars">'.$totalx.'</td>'; // Total
-            echo '</tr>';
-            $totalO += $totalx;
-            $k += 3;
         }
-        else {
-            $j += 2;
-            $k += 3;
-        }
+        echo '</tr>';
     }
-    echo '</tr>';
 }
 echo '<tr><td class="payslip" style="font-weight:bold;">&nbsp;</td><td class="payslip">Total gross</td><td colspan="2" class="payslip">&nbsp;</td><td class="dollars payslip">$'.number_format($totalO,2).'</td></tr>';
 echo '</table></body></html>';
