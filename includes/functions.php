@@ -28,21 +28,23 @@
     }
     // Calculates work when starting/finishing on the same day
     function dayof($start, $finish, $lulb, $buildup) {
-        $total = $finish-$start+$lulb+$buildup;
+        $total = $finish-$start;
         $base = 0;
         $OThalf = 0;
         $OTdouble = 0;
         if($total <= 8) {
             $base = $total;
         }
-        elseif($total > 8 && $total <= 11) {
+        elseif($total > 8) {
             $base = 8;
-            $OThalf = $total-$base;
+            $OT = $total-$base+$lulb+$buildup;
+        }
+        if($OT < 3) {
+            $OThalf = $OT;
         }
         else {
-            $base = 8;
             $OThalf = 3;
-            $OTdouble = $total-11;
+            $OTdouble = $OT-$OThalf;
         }
         $return = array($base,$OThalf,$OTdouble);
         return($return);
@@ -51,51 +53,53 @@
     function overnight($start, $finish, $lulb, $buildup) {
         $day1 = 24-$start;
         $day2 = $finish;
-        $total = $day1+$day2+$lulb+$buildup;
+        $total1 = $day1+$day2;
+        $total2 = $lulb+$buildup;
         // 150% overnight; 8 hours before midnight
         if($day1 > 8 && $day1 <= 11) {
             $base1 = 8;
-            $sOThalf = $total-8;
+            $OT1 = $total1-8+$total2;
+            if($OT1 > 3) {
+                $OT2 = $OT1-3;
+                $OT1 = 3;
+            }
         }
         // 200% overnight; 11 hours before midnight
         elseif($day1 > 11) {
             $base1 = 8;
-            $sOThalf = 3;
-            $sOTdouble = $day1-$sOThalf-$base1+$day2;
+            $OT1 = 3;
+            $OT2 = $total1+$total2-$base1-$OT1;
         }
         // Standard hours over midnight; no OT
-        elseif($total <= 8) {
+        elseif($total1 <= 8) {
             $base1 = $day1;
             $base2 = $day2;
+            if($total2 > 3) {
+                $OT1 = 3;
+                $OT2 = $total2-$OT1;
+            }
+            else {
+                $OT1 = $total2;
+            }
         }
         // 150% overnight; 8 hours after midnight
-        elseif($total > 8 && $total <= 11) {
+        elseif($total1 > 8 && $total1 <= 11) {
             $base1 = $day1;
-            $base2 = 8-($day1);
-            $OThalf = $total-8;
+            $base2 = 8-$day1;
+            $OT1 = $total1-8+$total2;
+            if($OT1 > 3) {
+                $OT2 = $OT1-3;
+                $OT1 = 3;
+            }
         }
         // 200% overnight; 8 hours after midnight
         else {
             $base1 = $day1;
-            $base2 = 8-($day1);
-            $OThalf = 3;
-            $OTdouble = $total-11;
+            $base2 = 8-$day1;
+            $OT1 = 3;
+            $OT2 = $total-11+$total2;
         }
-        $return = array($base1,$base2,$OThalf,$OTdouble);
-        return($return);
-    }
-    // Calculates overtime on hours claimable, including LU/LB
-    function overtime($time) {
-        if($time > 8 && $time <= 11) {
-            $base = 8;
-            $OThalf = $time-8;
-        }
-        else {
-            $base = 8;
-            $OThalf = 3;
-            $OTdouble = $time-11;
-        }
-        $return = array($base,$OThalf,$OTdouble);
+        $return = array($base1,$base2,$OT1,$OT2);
         return($return);
     }
     // Shift allowances
