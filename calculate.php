@@ -101,7 +101,7 @@ echo '</tr>';
 // Displays ADO adjustment
 if($fn == 'Short') {
     echo '<tr>';
-    echo '<td class="payslip"></td>';
+    echo '<td></td>';
     echo '<td class="payslip">ADO Adjustment</td>';
     echo '<td class="payslip">4</td>';
     $ratex = number_format($payrate,2);
@@ -113,7 +113,7 @@ if($fn == 'Short') {
 }
 else {
     echo '<tr>';
-    echo '<td class="payslip"></td>';
+    echo '<td></td>';
     echo '<td class="payslip">ADO Adjustment</td>';
     echo '<td class="payslip">-4</td>';
     $ratex = number_format($payrate,2);
@@ -126,7 +126,7 @@ else {
 // Displays total Ordinary Hours
 $units = array_sum($payslip['Ordinary hours']);
 echo '<tr>';
-echo '<td class="payslip"></td>';
+echo '<td></td>';
 echo '<td class="payslip">Ordinary Hours</td>';
 echo '<td class="payslip">'.$units.'</td>';
 $ratex = number_format($payrate,2);
@@ -141,33 +141,41 @@ foreach($payslip as $key => $value) {
     }
 }
 $date = array_keys($payslip);
-$j = 0;
+$countp = count($payslip);
 // Displays the poyslip tables
-for($i = 0; $i < count($payslip); $i++) {
+for($i = 0; $i < $countp; $i++) {
     echo '<tr>';
     echo '<td class="payslip">'.$date[$i].'</td>'; // Date - run once per top level array
     echo '<td colspan="4">&nbsp;</td>';
     echo '</tr>';
+    $countd = count($payslip[$date[$i]]);
     $k = 1;
-    foreach($payslip as $data) {
-        if(!empty($data[$k]) && $data[$k] != 0) { // ############## This should only skip the loop if there's nothing to output, not skip to the next date entirely
+    for($j = 0; $j < $countd; $j++) {
+        if(!empty($payslip[$date[$i]][$k]) && $payslip[$date[$i]][$k] != 0) {
+            // $j = 0
+            $detailO = $payslip[$date[$i]][$j];
+            ++$j; // 1
+            $unitsO = $payslip[$date[$i]][$j];
+            ++$j; // 2
+            $rateO = $payslip[$date[$i]][$j];
+            $ratex = number_format($rateO*$payrate,2); // Adjusted rate times payrate set by user
+            $totalx = number_format($ratex*$unitsO,2); // Total: adjusted rate times units
             echo '<tr>';
             echo '<td>&nbsp;</td>';
-            echo '<td class="payslip">'.$data[$j].'</td>'; // Detail
-            ++$j;
-            echo '<td class="payslip">'.$data[$j].'</td>'; // Units
-            ++$j;
-            $ratex = number_format($data[$j]*$payrate,2);
+            echo '<td class="payslip">'.$detailO.'</td>'; // Detail
+            echo '<td class="payslip">'.$unitsO.'</td>'; // Units
             echo '<td class="payslip dollars">'.$ratex.'</td>'; // Rate
-            --$j;
-            $totalx = number_format($ratex*$data[$j],2);
             echo '<td class="payslip dollars">'.$totalx.'</td>'; // Total
-            $totalO += $totalx;
-            $j += 2;
             echo '</tr>';
+            $totalO += $totalx;
+            $k += 3;
         }
-        $k += 3;
+        else {
+            $j += 2;
+            $k += 3;
+        }
     }
+    echo '</tr>';
 }
 echo '<tr><td class="payslip" style="font-weight:bold;">&nbsp;</td><td class="payslip">Total gross</td><td colspan="2" class="payslip">&nbsp;</td><td class="dollars payslip">$'.number_format($totalO,2).'</td></tr>';
 echo '</table></body></html>';
