@@ -10,9 +10,6 @@
 ini_set('display_errors', 'Off');
 include('includes/header.php');
 include('includes/general.php');
-// echo '<pre>';
-// print_r($daysA);
-// echo '</pre>';
 $t = '';
 $t = $_GET['t'];
 if($t == 'y') {
@@ -55,7 +52,7 @@ $css = md5(date("H:i:s"));
     <script src="includes/js.php?version=<?php echo $css; ?>"></script>
     <script>
     function msg() {
-        alert("Please enter all start/finish/mileage times in XXXX.\nPlease enter all LU/LB and Buildup times in XXX.\nThis calculator doesn't currently support relinquished shifts.")
+        alert("Please enter all start/finish/mileage times in XXXX.\nPlease enter all LU/LB/BU and additional payment times in XX:XX.\nThis calculator doesn't currently support relinquished shifts.")
     }
     </script>
 </head>
@@ -111,9 +108,6 @@ $css = md5(date("H:i:s"));
                     $i = 1;
                     $ix = 0;
                     foreach($days as $day) {
-                        if(strlen($day) != 3) {
-                            //continue;
-                        }
                         $dayi = str_pad($i,2,"0",STR_PAD_LEFT);
                         $shortdatex = explode('-', $startdate);
                         $shortdate = $shortdatex[0].'-'.$shortdatex[1];
@@ -138,11 +132,11 @@ $css = md5(date("H:i:s"));
                         echo '<tr>'."\n";
                         echo '<td class="border ">'.$day.'<input type="hidden" value="'.$day.$dayi.'" name="dayid'.$i.'"><input type="hidden" value="'.$day.'" name="day'.$i.'"></td>'."\n";
                         echo '<td class="border">'.$shortdate.'<input type="hidden" value="'.$shortdate.'" name="date'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="start'.$i.'" maxlength="4" size="4" pattern="\d{4}" class="time disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="finish'.$i.'" maxlength="4" size="4" pattern="\d{4}" class="time disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="lulb'.$i.'" maxlength="4" size="4" pattern="\d{3}" class="time disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="buildup'.$i.'" maxlength="4" size="4" pattern="\d{3}" class="time disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="mileage'.$i.'" maxlength="4" size="4" pattern="\d{4}" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="start'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="finish'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="lulb'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="buildup'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="mileage'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'"><input type="checkbox" name="cabetr'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'">'.$securityB."\n";
                         echo '<td class="border disable'.$i.'"><input type="checkbox" name="expenses'.$i.'"></td>'."\n";
@@ -161,6 +155,24 @@ $css = md5(date("H:i:s"));
                     }
 
                 ?>
+                <tr class="noborder">
+                    <td class="noborder" colspan="3">Extra payments</td>
+                    <td class="noborder"><input type="text" name="extra" size="4"></td>
+                    <td class="noborder"></td>
+                    <td colspan="6" class="noborder"><span style="text-decoration: underline;">Add the total time for additional payments, such as WOBOD.</span></td>
+                </tr>
+                <tr class="noborder">
+                    <td class="noborder" colspan="3">Pre-tax deductions</td>
+                    <td class="noborder"><input type="text" name="pretax" size="4"></td>
+                    <td class="noborder"></td>
+                    <td colspan="6" class="noborder"><span style="text-decoration: underline;">Enter the total pre-tax deductions, such as Maxxia.</span></td>
+                </tr>
+                <tr class="noborder">
+                    <td class="noborder" colspan="3">Post-tax deductions</td>
+                    <td class="noborder"><input type="text" name="posttax" size="4"></td>
+                    <td class="noborder"></td>
+                    <td colspan="6" class="noborder"><span style="text-decoration: underline;">Enter the total post-tax deductions, such as journey insurance.</span></td>
+                </tr>
                 <tr class="noborder"><td colspan="5" class="noborder"><input type="submit" value="Calculate" class="button"></td></tr>
                 <input type="hidden" value="<?php echo $rate; ?>" name="rate">
                 <input type="hidden" value="<?php echo $role; ?>" name="role">
