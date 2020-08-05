@@ -29,6 +29,7 @@ while($i < 14) {
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
+        unset($cabetr,$security,$expenses);
     }
     elseif($holnr == 'on') { // Public holiday not required
         // General
@@ -158,7 +159,12 @@ for($i = 0; $i < $countp; $i++) {
             $unitsO = $payslip[$date[$i]][$j];
             ++$j; // 2
             $rateO = $payslip[$date[$i]][$j];
-            $ratex = number_format($rateO*$payrate,2); // Adjusted rate times payrate set by user
+            if($detailO == 'Night shift' || $detailO == 'Morning shift' || $detailO == 'Afternoon shift' || $detailO == 'Cab/ETR' || $detailO == 'Security' || $detailO == 'Expenses > 10 hours') {
+                $ratex = number_format($rateO,2); // Rate for allowances
+            }
+            else {
+                $ratex = number_format($rateO*$payrate,2); // Adjusted rate times payrate set by user
+            }
             $totalx = number_format($ratex*$unitsO,2); // Total: adjusted rate times units
             echo '<tr>';
             echo '<td>&nbsp;</td>';
