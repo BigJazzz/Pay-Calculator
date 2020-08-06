@@ -187,6 +187,7 @@
     }
     // Calculates witholding
     function taxwitholding($gross,$taxarray) {
+        global $pretax,$posttax;
         // Code
     }
 ?>
