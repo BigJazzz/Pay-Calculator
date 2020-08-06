@@ -59,6 +59,7 @@ date_sub($startdate, date_interval_create_from_date_string('0 days'));
 $ldate = date_format($startdate, 'd-m-Y');
 $fn = $_POST['fn'];
 $payrate = $_POST['rate'];
+$wobod = $_POST['wobod'];
 $extra = $_POST['extra'];
 $pretax = $_POST['pretax'];
 $posttax = $_POST['posttax'];
