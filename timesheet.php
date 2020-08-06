@@ -132,7 +132,7 @@ $css = md5(date("H:i:s"));
                         echo '<tr>'."\n";
                         echo '<td class="border ">'.$day.'<input type="hidden" value="'.$day.$dayi.'" name="dayid'.$i.'"><input type="hidden" value="'.$day.'" name="day'.$i.'"></td>'."\n";
                         echo '<td class="border">'.$shortdate.'<input type="hidden" value="'.$shortdate.'" name="date'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="start'.$i.'" maxlength="4" size="4" max="9999" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="start'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'"></td>'."\n";
                         echo '<td class="border"><input type="text" name="finish'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'"></td>'."\n";
                         echo '<td class="border"><input type="text" name="lulb'.$i.'" maxlength="4" size="4" max="9999" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
                         echo '<td class="border"><input type="text" name="buildup'.$i.'" maxlength="4" size="4" max="9999" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
@@ -157,13 +157,13 @@ $css = md5(date("H:i:s"));
                 ?>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">WOBOD payments</td>
-                    <td class="noborder"><input type="text" name="extra" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Add the total time for WOBOD payments due.</span></td>
+                    <td class="noborder"><input type="text" name="wobod" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
+                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the total time for additional payments due, such as WOBOD.</span></td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Extra payments</td>
                     <td class="noborder"><input type="text" name="extra" size="4"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Add the total time for additional payments, <span style="font-weight: bold;">excluding WOBOD</span>.</span></td>
+                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the total dollar amount for additional payments, <span style="font-weight: bold;">excluding WOBOD</span>.</span></td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Pre-tax deductions</td>
