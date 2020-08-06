@@ -187,6 +187,10 @@
     }
     // Calculates witholding
     function taxwitholding($gross,$taxarray) {
-        // Code
+        global $pretax,$posttax;
+        $taxable = $gross-$pretax;
+        $taxpayable = $taxable in $taxarray;
+        $nettpay = $taxpayable-$posttax;
+        return($nettpay);
     }
 ?>
