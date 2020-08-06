@@ -8,9 +8,9 @@ include('includes/header.php');
 include('includes/functions.php');
 include('includes/general.php');
 $post = $_POST;
-// echo '<pre>';
-// print_r($post);
-// echo '</pre>';
+echo '<pre>';
+print_r($post);
+echo '</pre>';
 $cabetr = 0;
 $security = 0;
 $i = 0;
@@ -64,6 +64,21 @@ while($i < 14) {
     else {
         include('includes/calculations.php');
     }
+    if(isset($extra)) {
+        $payslip['Extra payments'] = $extra;
+    }
+    if(isset($wobod)) {
+        $time = $wobod;
+        $h = substr($time,0,2);
+        $m = substr($time,2);
+        $m = str_replace(':','',$m);
+        $h = floatval($h);
+        $m = floatval($m);
+        $m = $m/60;
+        $time = $h+$m;
+        $time = round($time, 2);
+        $payslip['WOBOD'] = $time;
+    }
     $allowances = allowances($cabetr,$security,$expenses);
     $a = 0;
     while($a < 9) {
@@ -72,9 +87,9 @@ while($i < 14) {
     }
     $ix++;
 }
-// echo '<pre>';
-// print_r($payslip);
-// echo '</pre>';
+echo '<pre>';
+print_r($payslip);
+echo '</pre>';
 $css = md5(date("H:i:s"));
 ?><!DOCTYPE html>
 <html>
@@ -137,9 +152,38 @@ echo '<td class="payslip dollars">'.$totalx.'</td>';
 echo '</tr>';
 $totalx = str_replace(',','',$totalx);
 $totalO += $totalx;
+// Shows WOBOD hours
+echo '<tr>';
+echo '<td></td>';
+echo '<td class="payslip">WOBOD</td>';
+echo '<td class="payslip">'.$payslip['WOBOD'].'</td>';
+$ratex = number_format($payrate*0.48,2);
+echo '<td class="payslip dollars">'.$ratex.'</td>';
+$totalx = number_format($ratex*$payslip['WOBOD'],2);
+echo '<td class="payslip dollars">'.$totalx.'</td>';
+echo '</tr>';
+$totalx = str_replace(',','',$totalx);
+$totalO += $totalx;
+// Shows extra amounts
+echo '<tr>';
+echo '<td></td>';
+echo '<td class="payslip">Extra payments</td>';
+echo '<td class="payslip">1</td>';
+$totalx = number_format($payslip['Extra payments'],2);
+echo '<td class="payslip dollars">'.$totalx.'</td>';
+echo '<td class="payslip dollars">'.$totalx.'</td>';
+echo '</tr>';
+$totalx = str_replace(',','',$totalx);
+$totalO += $totalx;
 foreach($payslip as $key => $value) {
     if($key == 'Ordinary hours') {
         unset($payslip['Ordinary hours']);
+    }
+    if($key == 'WOBOD') {
+        unset($payslip['WOBOD']);
+    }
+    if($key == 'Extra payments') {
+        unset($payslip['Extra payments']);
     }
 }
 $date = array_keys($payslip);
