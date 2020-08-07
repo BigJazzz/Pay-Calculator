@@ -158,27 +158,27 @@ $css = md5(date("H:i:s"));
                 <tr class="noborder">
                     <td class="noborder" colspan="3">WOBOD payments</td>
                     <td class="noborder"><input type="text" name="wobod" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the total time for WOBOD payments.</span></td>
+                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total time for WOBOD payments.</span></td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Extra payments (dollars)</td>
                     <td class="noborder"><input type="text" name="extrad" size="4"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the total dollar amount for additional payments, <span style="font-weight: bold;">excluding WOBOD</span>.</span></td>
+                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total dollar amount for additional payments, <span style="font-weight: bold;">excluding WOBOD</span>.</span></td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Extra payments (time)</td>
                     <td class="noborder"><input type="text" name="extrat" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
-                    <td colspan="8" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the time for additional hours claimed, <span style="font-weight: bold;">excluding WOBOD</span>, where not accounted for already.</span></td>
+                    <td colspan="8" class="noborder">&larr; <span style="text-decoration: underline;">Enter the time for additional hours claimed, <span style="font-weight: bold;">excluding WOBOD</span>, where not accounted for already.</span></td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Pre-tax deductions</td>
                     <td class="noborder"><input type="text" name="pretax" size="4"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the total pre-tax deductions, such as Maxxia.</span></td>
+                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total pre-tax deductions, such as Maxxia.</span></td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Post-tax deductions</td>
                     <td class="noborder"><input type="text" name="posttax" size="4"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the total post-tax deductions, such as journey insurance.</span></td>
+                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total post-tax deductions, such as journey insurance.</span></td>
                 </tr>
                 <tr class="noborder"><td colspan="5" class="noborder"><input type="submit" value="Calculate" class="button"></td></tr>
                 <input type="hidden" value="<?php echo $rate; ?>" name="rate">
