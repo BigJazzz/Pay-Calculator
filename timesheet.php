@@ -112,22 +112,22 @@ $css = md5(date("H:i:s"));
                         $shortdatex = explode('-', $startdate);
                         $shortdate = $shortdatex[0].'-'.$shortdatex[1];
                         if($day == 'Sun' || $day == 'Sat') {
-                            $calloutB = '<input type="hidden" name="callout'.$i.'" value="off"></td>';
+                            $calloutB = '<input type="hidden" name="callout'.$i.'" value="off" class="disable'.$i.'"></td>';
                         }
                         else {
-                            $calloutB = '<input type="checkbox" name="callout'.$i.'"></td>';
+                            $calloutB = '<input type="checkbox" name="callout'.$i.'" class="disable'.$i.'"></td>';
                         }
                         if($role == 'Driver') {
-                            $securityB = '<input type="hidden" name="security'.$i.'" value="off">N/A</td>';
+                            $securityB = '<input type="hidden" name="security'.$i.'" value="off" class="disable'.$i.'">N/A</td>';
                         }
                         else {
-                            $securityB = '<input type="checkbox" name="security'.$i.'"></td>';
+                            $securityB = '<input type="checkbox" name="security'.$i.'" class="disable'.$i.'"></td>';
                         }
                         if($day == 'Sun') {
-                            $pholB = '<input type="hidden" name="phol'.$i.'" value="off"></td>';
+                            $pholB = '<input type="hidden" name="phol'.$i.'" value="off" class="disable'.$i.'"></td>';
                         }
                         else {
-                            $pholB = '<input type="checkbox" name="phol'.$i.'"></td>';
+                            $pholB = '<input type="checkbox" name="phol'.$i.'" class="disable'.$i.'"></td>';
                         }
                         echo '<tr>'."\n";
                         echo '<td class="border ">'.$day.'<input type="hidden" value="'.$day.$dayi.'" name="dayid'.$i.'"><input type="hidden" value="'.$day.'" name="day'.$i.'"></td>'."\n";
@@ -137,15 +137,15 @@ $css = md5(date("H:i:s"));
                         echo '<td class="border"><input type="text" name="lulb'.$i.'" maxlength="4" size="4" max="9999" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
                         echo '<td class="border"><input type="text" name="buildup'.$i.'" maxlength="4" size="4" max="9999" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
                         echo '<td class="border"><input type="text" name="mileage'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'" pattern="[0-9]{2}:[0-9]{2}"></td>'."\n";
-                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="cabetr'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="checkbox" name="cabetr'.$i.'" class="disable'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'">'.$securityB."\n";
-                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="expenses'.$i.'"></td>'."\n";
+                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="expenses'.$i.'" class="disable'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'">'.$calloutB."\n";
                         //echo '<td class="border disable'.$i.'"><input type="checkbox" name="wobod'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'">'.$pholB."\n";
-                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="holnr'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="checkbox" name="sick'.$i.'" onclick="disableInput()"></td>'."\n";
-                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="training'.$i.'"></td>'."\n";
+                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="holnr'.$i.'" class="disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="checkbox" name="sick'.$i.'"></td>'."\n";
+                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="training'.$i.'" class="disable'.$i.'"></td>'."\n";
                         echo '</tr>'."\n";
                         $startdate = $shortdatex[2].'-'.$shortdatex[1].'-'.$shortdatex[0];
                         $startdate = strtotime('+1 day', strtotime($startdate));
@@ -189,14 +189,33 @@ $css = md5(date("H:i:s"));
             </table>
         </div>
     </div>
-    <script>
-    function disableInput() {
+    <!-- <script>
+    var i = 1;
+    while(i < 15) {
+        $(`input[name="sick${i}"]`).click(function() {;
             if ($(this).is(':checked')) {
-                $(this).parent().siblings().children().attr("disabled", true);
-            } else {
-                $(this).parent().siblings().children().attr("disabled", false);
+                $(`.disable${i}`).prop("disabled", true);
+            } else {;
+                $(`.disable${i}`).prop("disabled", false);
             }
-        };
-    </script>
+        });
+        i++;
+    };
+    </script> -->
+    <?php
+    $i = 1;
+    echo '<script>'."\r\n";
+    while($i < 15) {
+        echo '$(\'input[name="sick'.$i.'"]\').click(function() {'."\r\n";
+        echo    'if ($(this).is(\':checked\')) {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", true);'."\r\n";
+        echo        '} else {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", false);'."\r\n";
+        echo        '}'."\r\n";
+        echo '});'."\r\n";
+        $i++;
+    }
+    echo '</script>'."\r\n";
+    ?>
 </body>
 </html>
