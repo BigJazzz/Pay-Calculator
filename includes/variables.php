@@ -60,7 +60,8 @@ $ldate = date_format($startdate, 'd-m-Y');
 $fn = $_POST['fn'];
 $payrate = $_POST['rate'];
 $wobod = $_POST['wobod'];
-$extra = $_POST['extra'];
+$extrad = $_POST['extrad'];
+$extrat = $_POST['extrat'];
 $pretax = $_POST['pretax'];
 $posttax = $_POST['posttax'];
 // Allowance rates
