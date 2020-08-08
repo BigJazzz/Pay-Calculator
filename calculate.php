@@ -29,7 +29,6 @@ while($i < 14) {
         $payslip[$date][] = $detail;
         $payslip[$date][] = $units;
         $payslip[$date][] = $rate;
-        unset($cabetr,$security,$expenses);
     }
     elseif($holnr == 'on') { // Public holiday not required
         // General
@@ -64,8 +63,20 @@ while($i < 14) {
     else {
         include('includes/calculations.php');
     }
-    if(isset($extra)) {
-        $payslip['Extra payments'] = $extra;
+    if(isset($extrad)) {
+        $payslip['Extra payments'][] = $extrad;
+    }
+    if(isset($extrat)) {
+        $time = $extrat;
+        $h = substr($time,0,2);
+        $m = substr($time,2);
+        $m = str_replace(':','',$m);
+        $h = floatval($h);
+        $m = floatval($m);
+        $m = $m/60;
+        $time = $h+$m;
+        $time = round($time, 2);
+        $payslip['Extra payments'][] = $time*$payrate;
     }
     if(isset($wobod)) {
         $time = $wobod;
