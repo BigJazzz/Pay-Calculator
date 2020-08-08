@@ -168,7 +168,7 @@ $css = md5(date("H:i:s"));
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Extra payments (time)</td>
                     <td class="noborder"><input type="text" name="extrat" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
-                    <td colspan="8" class="noborder">&larr; <span style="text-decoration: underline;">Enter the time for additional hours claimed, <span style="font-weight: bold;">excluding WOBOD</span>, where not accounted for already.</span></td>
+                    <td colspan="8" class="noborder">&larr; <span style="text-decoration: underline;">Enter the time for additional hours claimed, <span style="font-weight: bold;">excluding WOBOD</span>, where not accounted for already. (Calculated at standard rates.)</span></td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Pre-tax deductions</td>
@@ -206,9 +206,12 @@ $css = md5(date("H:i:s"));
     $i = 1;
     echo '<script>'."\r\n";
     while($i < 15) {
-        echo '$(\'input[name="sick'.$i.'"]\').click(function() {'."\r\n";
+        echo 'var a = ["sick'.$i.'","training'.$i.'","holnr'.$i.'"]';
+        echo 'var s = a.join(", ")';
+        echo '$(s).click(function() {'."\r\n";
         echo    'if ($(this).is(\':checked\')) {'."\r\n";
         echo            '$(".disable'.$i.'").prop("disabled", true);'."\r\n";
+        echo            '$(this).prop("disabled", false);'."\r\n";
         echo        '} else {'."\r\n";
         echo            '$(".disable'.$i.'").prop("disabled", false);'."\r\n";
         echo        '}'."\r\n";
