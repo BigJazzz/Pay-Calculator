@@ -81,7 +81,7 @@ $css = md5(date("H:i:s"));
                     <td>$<?php echo $rate; ?></td>
                 </tr>
                 <tr>
-                    <td colspan="7" style="padding-top: 5px; padding-bottom: 5px;"><input type="button" onclick="msg()" value="Important Information" class="button" style="background-color: red;"></td>
+                    <td colspan="7" style="padding-top: 5px; padding-bottom: 5px;"><input type="button" onclick="msg()" value="Important Information" class="button" style="background-color: red;"> &larr; Recommended if this is your first time using this calculator.</td>
                 </tr>
             </table>
             <table id="timesheet">
