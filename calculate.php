@@ -8,9 +8,9 @@ include('includes/header.php');
 include('includes/functions.php');
 include('includes/general.php');
 $post = $_POST;
-echo '<pre>';
-print_r($post);
-echo '</pre>';
+// echo '<pre>';
+// print_r($post);
+// echo '</pre>';
 $cabetr = 0;
 $security = 0;
 $i = 0;
@@ -43,16 +43,14 @@ while($i < 14) {
     }
     elseif($training == 'on') { // Training hours
         // General
-        $detail = 'Ordinary hours'; // Friendly name
-        $units = 8; // Hours and minutes in decimal
+        $payslip['Ordinary hours'][] = 8;
         if($day == 'Sat') {
-            $rate = 1.5;
+            $rate = 0.5;
+            $units = 8; // Hours and minutes in decimal
         }
         elseif($day == 'Sun') {
-            $rate = 2;
-        }
-        else {
             $rate = 1;
+            $units = 8; // Hours and minutes in decimal
         }
         // Specific
         ++$OTcount;
@@ -98,9 +96,9 @@ while($i < 14) {
     }
     $ix++;
 }
-echo '<pre>';
-print_r($payslip);
-echo '</pre>';
+// echo '<pre>';
+// print_r($payslip);
+// echo '</pre>';
 $css = md5(date("H:i:s"));
 ?><!DOCTYPE html>
 <html>
@@ -112,7 +110,7 @@ $css = md5(date("H:i:s"));
     <link rel="stylesheet" href="styles/style.css?version=<?php echo $css; ?>" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- <script src="includes/js.php"></script> -->
-    <!-- <script src="includes/js.php?version=<?php echo //$css; ?>"></script> -->
+    <!-- <script src="includes/js.php?version=<?php //echo $css; ?>"></script> -->
 </head>
 <body>
 <?php
@@ -171,7 +169,7 @@ if(!empty($wobod)) {
     echo '<td class="payslip">'.$wobod.'</td>';
     $ratex = number_format($payrate*0.48,2);
     echo '<td class="payslip dollars">'.$ratex.'</td>';
-    $totalx = number_format($ratex*$payslip['WOBOD'],2);
+    $totalx = number_format($ratex*$wobod,2);
     echo '<td class="payslip dollars">'.$totalx.'</td>';
     echo '</tr>';
     $totalx = str_replace(',','',$totalx);
@@ -245,5 +243,6 @@ for($i = 0; $i < $countp; $i++) {
     }
 }
 echo '<tr><td class="payslip" style="font-weight:bold;">&nbsp;</td><td class="payslip">Total gross</td><td colspan="2" class="payslip">&nbsp;</td><td class="dollars payslip">$'.number_format($totalO,2).'</td></tr>';
-echo '</table></body></html>';
+echo '</table>';
+echo '</body></html>';
 ?>
