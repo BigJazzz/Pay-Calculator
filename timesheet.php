@@ -160,7 +160,7 @@ $css = md5(date("H:i:s"));
                     <td class="noborder"><input type="text" name="wobod" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
                     <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total time for WOBOD payments.</span></td>
                 </tr>
-                <tr class="noborder">
+                <!-- <tr class="noborder">
                     <td class="noborder" colspan="3">Extra payments (dollars)</td>
                     <td class="noborder"><input type="text" name="extrad" size="4"></td>
                     <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total dollar amount for additional payments, <span style="font-weight: bold;">excluding WOBOD</span>.</span></td>
@@ -169,7 +169,7 @@ $css = md5(date("H:i:s"));
                     <td class="noborder" colspan="3">Extra payments (time)</td>
                     <td class="noborder"><input type="text" name="extrat" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
                     <td colspan="8" class="noborder">&larr; <span style="text-decoration: underline;">Enter the time for additional hours claimed, <span style="font-weight: bold;">excluding WOBOD</span>, where not accounted for already. (Calculated at standard rates.)</span></td>
-                </tr>
+                </tr> -->
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Pre-tax deductions</td>
                     <td class="noborder"><input type="text" name="pretax" size="4"></td>
