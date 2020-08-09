@@ -188,6 +188,18 @@
     // Calculates witholding
     function taxwitholding($gross,$taxarray) {
         global $pretax,$posttax;
-        // Code
+        $gross -= $pretax;
+        $gross = $gross/2;
+        $gross += 0.99;
+        for($i = 0; $i < 8; $i++) {
+            if($gross >= $taxarray[7][0]){
+                $nett = $gross*$taxarray[7][1]-$taxarray[7][2];
+            }
+            elseif($gross < $taxarray[$i][0]) {
+                $nett = $gross*$taxarray[$i][1]-$taxarray[$i][2];
+            }
+        }
+        $nett *= 2;
+        return($nett);
     }
 ?>
