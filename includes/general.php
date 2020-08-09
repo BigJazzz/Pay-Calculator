@@ -18,7 +18,6 @@
     if(!basename($_SERVER['PHP_SELF'])) {
         $fn = $_POST['fn']; // Short / long fortnight
     }
-    $taxarray = array(); // Weekly earnings array
     $taxarray = array( // Upper threshold, a, b
         array(354,0,0),
         array(421,0.1900,67.4635),
