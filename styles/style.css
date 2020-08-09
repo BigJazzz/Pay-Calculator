@@ -80,3 +80,6 @@ table#payslip > tr:last-child {
 .dollars {
     text-align: right;
 }
+.title {
+    font-weight: bold;
+}
