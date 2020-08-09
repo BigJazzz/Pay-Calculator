@@ -52,7 +52,7 @@ $css = md5(date("H:i:s"));
     <!-- <script src="includes/js.php?version=<?php echo $css; ?>"></script> -->
     <script>
     function msg() {
-        alert("Please enter all start/finish/mileage times in XXXX.\nPlease enter all LU/LB/BU and additional payment times in XX:XX.\nThis calculator doesn't currently support relinquished shifts.")
+        alert("Please enter all start/finish/mileage times in XXXX.\nPlease enter all LU/LB/BU and additional payment times in XX:XX.\nThis calculator doesn't currently support relinquished shifts, or mid-cycle changes to pay rates and allowances.")
     }
     </script>
 </head>
