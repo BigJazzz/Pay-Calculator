@@ -1,8 +1,8 @@
 <?php
-// if(!isset($_POST)) {
-//     header("Location: https://calc.ssby.me");
-//     die();
-// }
+if(empty($_POST) || isset($_POST) || $_POST == '') {
+    header("Location: https://calc.ssby.me");
+    die();
+}
 // if(isset($_GET) && $_GET["t"] != 'y') {
 //     header("Location: https://calc.ssby.me");
 //     die();
