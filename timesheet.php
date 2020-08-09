@@ -186,6 +186,7 @@ $css = md5(date("H:i:s"));
                 <input type="hidden" value="<?php echo $date; ?>" name="date">
                 <input type="hidden" value="<?php echo $ls; ?>" name="fn">
                 </form>
+                <tr><td colspan="7">To report issues, head to the <a href="https://github.com/BigJazzz/Pay-Calculator/issues" target="_blank">issue tracker</a></td></tr>
             </table>
         </div>
     </div>
