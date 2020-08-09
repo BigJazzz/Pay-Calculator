@@ -153,13 +153,14 @@ $css = md5(date("H:i:s"));
                         $i++;
                         $ix++;
                     }
-
+                    if($role == 'Guard') {
+                        echo '<tr class="noborder">';
+                        echo     '<td class="noborder" colspan="3">WOBOD payments</td>';
+                        echo     '<td class="noborder"><input type="text" name="wobod" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>';
+                        echo     '<td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total time for WOBOD payments from prior fortnight.</span></td>';
+                        echo '</tr>';
+                    }
                 ?>
-                <tr class="noborder">
-                    <td class="noborder" colspan="3">WOBOD payments</td>
-                    <td class="noborder"><input type="text" name="wobod" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
-                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total time for WOBOD payments from prior fortnight.</span></td>
-                </tr>
                 <!-- <tr class="noborder">
                     <td class="noborder" colspan="3">Extra payments (dollars)</td>
                     <td class="noborder"><input type="text" name="extrad" size="4"></td>
@@ -186,7 +187,7 @@ $css = md5(date("H:i:s"));
                 <input type="hidden" value="<?php echo $date; ?>" name="date">
                 <input type="hidden" value="<?php echo $ls; ?>" name="fn">
                 </form>
-                <tr><td colspan="7">To report issues, head to the <a href="https://github.com/BigJazzz/Pay-Calculator/issues" target="_blank">issue tracker</a></td></tr>
+                <tr><td colspan="15">To report issues, head to the <a href="https://github.com/BigJazzz/Pay-Calculator/issues" target="_blank">issue tracker</a></td></tr>
             </table>
         </div>
     </div>
