@@ -49,7 +49,7 @@ $css = md5(date("H:i:s"));
     <link rel="stylesheet" href="styles/style.css?version=<?php echo $css; ?>" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- <script src="includes/js.php"></script> -->
-    <script src="includes/js.php?version=<?php echo $css; ?>"></script>
+    <!-- <script src="includes/js.php?version=<?php echo $css; ?>"></script> -->
     <script>
     function msg() {
         alert("Please enter all start/finish/mileage times in XXXX.\nPlease enter all LU/LB/BU and additional payment times in XX:XX.\nThis calculator doesn't currently support relinquished shifts.")
@@ -144,7 +144,7 @@ $css = md5(date("H:i:s"));
                         //echo '<td class="border disable'.$i.'"><input type="checkbox" name="wobod'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'">'.$pholB."\n";
                         echo '<td class="border disable'.$i.'"><input type="checkbox" name="holnr'.$i.'" class="disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="checkbox" name="sick'.$i.'"></td>'."\n";
+                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="sick'.$i.'" class="disable'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'"><input type="checkbox" name="training'.$i.'" class="disable'.$i.'"></td>'."\n";
                         echo '</tr>'."\n";
                         $startdate = $shortdatex[2].'-'.$shortdatex[1].'-'.$shortdatex[0];
@@ -158,7 +158,7 @@ $css = md5(date("H:i:s"));
                 <tr class="noborder">
                     <td class="noborder" colspan="3">WOBOD payments</td>
                     <td class="noborder"><input type="text" name="wobod" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
-                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total time for WOBOD payments.</span></td>
+                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total time for WOBOD payments from prior fortnight.</span></td>
                 </tr>
                 <!-- <tr class="noborder">
                     <td class="noborder" colspan="3">Extra payments (dollars)</td>
@@ -189,26 +189,27 @@ $css = md5(date("H:i:s"));
             </table>
         </div>
     </div>
-    <!-- <script>
-    var i = 1;
-    while(i < 15) {
-        $(`input[name="sick${i}"]`).click(function() {;
-            if ($(this).is(':checked')) {
-                $(`.disable${i}`).prop("disabled", true);
-            } else {;
-                $(`.disable${i}`).prop("disabled", false);
-            }
-        });
-        i++;
-    };
-    </script> -->
     <?php
     $i = 1;
     echo '<script>'."\r\n";
     while($i < 15) {
-        echo 'var a = ["sick'.$i.'","training'.$i.'","holnr'.$i.'"]';
-        echo 'var s = a.join(", ")';
-        echo '$(s).click(function() {'."\r\n";
+        echo '$(\'input[name="sick'.$i.'"]\').click(function() {'."\r\n";
+        echo    'if ($(this).is(\':checked\')) {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", true);'."\r\n";
+        echo            '$(this).prop("disabled", false);'."\r\n";
+        echo        '} else {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", false);'."\r\n";
+        echo        '}'."\r\n";
+        echo '});'."\r\n";
+        echo '$(\'input[name="training'.$i.'"]\').click(function() {'."\r\n";
+        echo    'if ($(this).is(\':checked\')) {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", true);'."\r\n";
+        echo            '$(this).prop("disabled", false);'."\r\n";
+        echo        '} else {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", false);'."\r\n";
+        echo        '}'."\r\n";
+        echo '});'."\r\n";
+        echo '$(\'input[name="holnr'.$i.'"]\').click(function() {'."\r\n";
         echo    'if ($(this).is(\':checked\')) {'."\r\n";
         echo            '$(".disable'.$i.'").prop("disabled", true);'."\r\n";
         echo            '$(this).prop("disabled", false);'."\r\n";
