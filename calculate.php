@@ -63,21 +63,21 @@ while($i < 14) {
     else {
         include('includes/calculations.php');
     }
-    if(isset($extrad)) {
-        $payslip['Extra payments'][] = $extrad;
-    }
-    if(isset($extrat)) {
-        $time = $extrat;
-        $h = substr($time,0,2);
-        $m = substr($time,2);
-        $m = str_replace(':','',$m);
-        $h = floatval($h);
-        $m = floatval($m);
-        $m = $m/60;
-        $time = $h+$m;
-        $time = round($time, 2);
-        $payslip['Extra payments'][] = $time*$payrate;
-    }
+    // if(isset($extrad)) {
+    //     $payslip['Extra payments'][] = $extrad;
+    // }
+    // if(isset($extrat)) {
+    //     $time = $extrat;
+    //     $h = substr($time,0,2);
+    //     $m = substr($time,2);
+    //     $m = str_replace(':','',$m);
+    //     $h = floatval($h);
+    //     $m = floatval($m);
+    //     $m = $m/60;
+    //     $time = $h+$m;
+    //     $time = round($time, 2);
+    //     $payslip['Extra payments'] = $time*$payrate;
+    // }
     if(isset($wobod)) {
         $time = $wobod;
         $h = substr($time,0,2);
@@ -88,7 +88,7 @@ while($i < 14) {
         $m = $m/60;
         $time = $h+$m;
         $time = round($time, 2);
-        $payslip['WOBOD'] = $time;
+        $wobod = $time;
     }
     $allowances = allowances($cabetr,$security,$expenses);
     $a = 0;
@@ -112,7 +112,7 @@ $css = md5(date("H:i:s"));
     <link rel="stylesheet" href="styles/style.css?version=<?php echo $css; ?>" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- <script src="includes/js.php"></script> -->
-    <script src="includes/js.php?version=<?php echo $css; ?>"></script>
+    <!-- <script src="includes/js.php?version=<?php echo //$css; ?>"></script> -->
 </head>
 <body>
 <?php
@@ -164,26 +164,28 @@ echo '</tr>';
 $totalx = str_replace(',','',$totalx);
 $totalO += $totalx;
 // Shows WOBOD hours
-echo '<tr>';
-echo '<td></td>';
-echo '<td class="payslip">WOBOD</td>';
-echo '<td class="payslip">'.$payslip['WOBOD'].'</td>';
-$ratex = number_format($payrate*0.48,2);
-echo '<td class="payslip dollars">'.$ratex.'</td>';
-$totalx = number_format($ratex*$payslip['WOBOD'],2);
-echo '<td class="payslip dollars">'.$totalx.'</td>';
-echo '</tr>';
-$totalx = str_replace(',','',$totalx);
-$totalO += $totalx;
+if(!empty($wobod)) {
+    echo '<tr>';
+    echo '<td></td>';
+    echo '<td class="payslip">WOBOD</td>';
+    echo '<td class="payslip">'.$wobod.'</td>';
+    $ratex = number_format($payrate*0.48,2);
+    echo '<td class="payslip dollars">'.$ratex.'</td>';
+    $totalx = number_format($ratex*$payslip['WOBOD'],2);
+    echo '<td class="payslip dollars">'.$totalx.'</td>';
+    echo '</tr>';
+    $totalx = str_replace(',','',$totalx);
+    $totalO += $totalx;
+}
 // Shows extra amounts
-echo '<tr>';
-echo '<td></td>';
-echo '<td class="payslip">Extra payments</td>';
-echo '<td class="payslip">1</td>';
-$totalx = number_format($payslip['Extra payments'],2);
-echo '<td class="payslip dollars">'.$totalx.'</td>';
-echo '<td class="payslip dollars">'.$totalx.'</td>';
-echo '</tr>';
+// echo '<tr>';
+// echo '<td></td>';
+// echo '<td class="payslip">Extra payments</td>';
+// echo '<td class="payslip">1</td>';
+// $totalx = number_format($payslip['Extra payments'],2);
+// echo '<td class="payslip dollars">'.$totalx.'</td>';
+// echo '<td class="payslip dollars">'.$totalx.'</td>';
+// echo '</tr>';
 $totalx = str_replace(',','',$totalx);
 $totalO += $totalx;
 foreach($payslip as $key => $value) {
@@ -191,11 +193,11 @@ foreach($payslip as $key => $value) {
         unset($payslip['Ordinary hours']);
     }
     if($key == 'WOBOD') {
-        unset($payslip['WOBOD']);
+        unset($wobod);
     }
-    if($key == 'Extra payments') {
-        unset($payslip['Extra payments']);
-    }
+    // if($key == 'Extra payments') {
+    //     unset($payslip['Extra payments']);
+    // }
 }
 $date = array_keys($payslip);
 $countp = count($payslip);
