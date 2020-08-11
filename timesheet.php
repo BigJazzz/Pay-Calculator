@@ -1,5 +1,5 @@
 <?php
-if(empty($_POST) || isset($_POST) || $_POST == '') {
+if(empty($_POST) || !isset($_POST) || $_POST == '') {
     header("Location: https://calc.ssby.me");
     die();
 }
@@ -8,6 +8,9 @@ if(empty($_POST) || isset($_POST) || $_POST == '') {
 //     die();
 // }
 ini_set('display_errors', 'Off');
+ini_set('session.cookie_lifetime', 60*60*24*365);
+ini_set('session.save_path', '/home/bigjazzzss/calc.ssby.me/session');
+session_start();
 include('includes/header.php');
 include('includes/general.php');
 $t = '';

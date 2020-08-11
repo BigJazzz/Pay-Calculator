@@ -1,5 +1,5 @@
 <?php
-if(empty($_POST) || isset($_POST) || $_POST == '') {
+if(empty($_POST) || !isset($_POST) || $_POST == '') {
     header("Location: https://calc.ssby.me");
     die();
 }
