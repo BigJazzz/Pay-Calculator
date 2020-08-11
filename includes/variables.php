@@ -59,7 +59,9 @@ date_sub($startdate, date_interval_create_from_date_string('0 days'));
 $ldate = date_format($startdate, 'd-m-Y');
 $fn = $_POST['fn'];
 $payrate = $_POST['rate'];
-$extra = $_POST['extra'];
+$wobod = $_POST['wobod'];
+$extrad = $_POST['extrad'];
+$extrat = $_POST['extrat'];
 $pretax = $_POST['pretax'];
 $posttax = $_POST['posttax'];
 // Allowance rates

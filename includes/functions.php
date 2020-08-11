@@ -186,11 +186,23 @@
         return($e);
     }
     // Calculates witholding
-    function taxwitholding($gross,$taxarray) {
-        global $pretax,$posttax;
-        $taxable = $gross-$pretax;
-        $taxpayable = $taxable in $taxarray;
-        $nettpay = $taxpayable-$posttax;
-        return($nettpay);
+    function taxwitholding($gross) {
+        global $pretax,$taxarray;
+        $gross = str_replace(',','',$gross);
+        $gross -= $pretax;
+        $gross = floor($gross/2);
+        $gross += 0.99;
+        for($i = 0; $i < 8; $i++) {
+            if($gross >= $taxarray[7][0]){
+                $nett = $gross*$taxarray[7][1]-$taxarray[7][2];
+                $i = 8;
+            }
+            elseif($gross < $taxarray[$i][0]) {
+                $nett = $gross*$taxarray[$i][1]-$taxarray[$i][2];
+                $i = 8;
+            }
+        }
+        $nett = round($nett*2);
+        return($nett);
     }
 ?>

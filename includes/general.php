@@ -18,16 +18,15 @@
     if(!basename($_SERVER['PHP_SELF'])) {
         $fn = $_POST['fn']; // Short / long fortnight
     }
-    $taxarray = array(); // Weekly earnings array
     $taxarray = array( // Upper threshold, a, b
-        array(354,0,0),
-        array(421,0.1900,67.4635),
-        array(527,0.2900,109.7327),
-        array(710,0.2100,67.4635),
-        array(1283,0.3477,165.4423),
-        array(1729,0.3450,161.9808),
-        array(3460,0.3900,239.8654),
-        array(3461,0.4700,516.7885)
+        array(355,0,0),
+        array(422,0.1900,67.4635),
+        array(528,0.2900,109.7327),
+        array(711,0.2100,67.4635),
+        array(1282,0.3477,165.4423),
+        array(1730,0.3450,161.9808),
+        array(3461,0.3900,239.8654),
+        array(3462,0.4700,516.7885)
     ); // a*(earnings/2)-b=witholding*2 = witholding amount
     $daydetails = array(
             'Sun' => array('Sunday @ 200%', 2, 'Scheduled OT @ 200%', 2, 'Scheduled OT @ 200%', 2),

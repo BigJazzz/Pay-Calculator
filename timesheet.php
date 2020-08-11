@@ -1,13 +1,16 @@
 <?php
-// if(!isset($_POST)) {
-//     header("Location: https://calc.ssby.me");
-//     die();
-// }
+if(empty($_POST) || !isset($_POST) || $_POST == '') {
+    header("Location: https://calc.ssby.me");
+    die();
+}
 // if(isset($_GET) && $_GET["t"] != 'y') {
 //     header("Location: https://calc.ssby.me");
 //     die();
 // }
 ini_set('display_errors', 'Off');
+ini_set('session.cookie_lifetime', 60*60*24*365);
+ini_set('session.save_path', '/home/bigjazzzss/calc.ssby.me/session');
+session_start();
 include('includes/header.php');
 include('includes/general.php');
 $t = '';
@@ -49,10 +52,10 @@ $css = md5(date("H:i:s"));
     <link rel="stylesheet" href="styles/style.css?version=<?php echo $css; ?>" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- <script src="includes/js.php"></script> -->
-    <script src="includes/js.php?version=<?php echo $css; ?>"></script>
+    <!-- <script src="includes/js.php?version=<?php echo $css; ?>"></script> -->
     <script>
     function msg() {
-        alert("Please enter all start/finish/mileage times in XXXX.\nPlease enter all LU/LB/BU and additional payment times in XX:XX.\nThis calculator doesn't currently support relinquished shifts.")
+        alert("Please enter all start/finish/mileage times in XXXX.\nPlease enter all LU/LB/BU and additional payment times in XX:XX.\nThis calculator doesn't currently support relinquished shifts, or mid-cycle changes to pay rates and allowances.")
     }
     </script>
 </head>
@@ -81,7 +84,7 @@ $css = md5(date("H:i:s"));
                     <td>$<?php echo $rate; ?></td>
                 </tr>
                 <tr>
-                    <td colspan="7" style="padding-top: 5px; padding-bottom: 5px;"><input type="button" onclick="msg()" value="Important Information" class="button" style="background-color: red;"></td>
+                    <td colspan="7" style="padding-top: 5px; padding-bottom: 5px;"><input type="button" onclick="msg()" value="Important Information" class="button" style="background-color: red;"> &larr; Recommended if this is your first time using this calculator.</td>
                 </tr>
             </table>
             <table id="timesheet">
@@ -112,40 +115,40 @@ $css = md5(date("H:i:s"));
                         $shortdatex = explode('-', $startdate);
                         $shortdate = $shortdatex[0].'-'.$shortdatex[1];
                         if($day == 'Sun' || $day == 'Sat') {
-                            $calloutB = '<input type="hidden" name="callout'.$i.'" value="off"></td>';
+                            $calloutB = '<input type="hidden" name="callout'.$i.'" value="off" class="disable'.$i.'"></td>';
                         }
                         else {
-                            $calloutB = '<input type="checkbox" name="callout'.$i.'"></td>';
+                            $calloutB = '<input type="checkbox" name="callout'.$i.'" class="disable'.$i.'"></td>';
                         }
                         if($role == 'Driver') {
-                            $securityB = '<input type="hidden" name="security'.$i.'" value="off">N/A</td>';
+                            $securityB = '<input type="hidden" name="security'.$i.'" value="off" class="disable'.$i.'">N/A</td>';
                         }
                         else {
-                            $securityB = '<input type="checkbox" name="security'.$i.'"></td>';
+                            $securityB = '<input type="checkbox" name="security'.$i.'" class="disable'.$i.'"></td>';
                         }
                         if($day == 'Sun') {
-                            $pholB = '<input type="hidden" name="phol'.$i.'" value="off"></td>';
+                            $pholB = '<input type="hidden" name="phol'.$i.'" value="off" class="disable'.$i.'"></td>';
                         }
                         else {
-                            $pholB = '<input type="checkbox" name="phol'.$i.'"></td>';
+                            $pholB = '<input type="checkbox" name="phol'.$i.'" class="disable'.$i.'"></td>';
                         }
                         echo '<tr>'."\n";
                         echo '<td class="border ">'.$day.'<input type="hidden" value="'.$day.$dayi.'" name="dayid'.$i.'"><input type="hidden" value="'.$day.'" name="day'.$i.'"></td>'."\n";
                         echo '<td class="border">'.$shortdate.'<input type="hidden" value="'.$shortdate.'" name="date'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="start'.$i.'" maxlength="4" size="4" max="9999" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="finish'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="lulb'.$i.'" maxlength="4" size="4" max="9999" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="buildup'.$i.'" maxlength="4" size="4" max="9999" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="text" name="mileage'.$i.'" maxlength="4" size="4" max="9999" class="time disable'.$i.'" pattern="[0-9]{2}:[0-9]{2}"></td>'."\n";
-                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="cabetr'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="start'.$i.'" size="4" max="2400" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="finish'.$i.'" size="4" max="2400" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="lulb'.$i.'" size="4" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="buildup'.$i.'" size="4" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="text" name="mileage'.$i.'" size="4" pattern="[0-9]{2}:[0-9]{2}" class="time disable'.$i.'"></td>'."\n";
+                        echo '<td class="border"><input type="checkbox" name="cabetr'.$i.'" class="disable'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'">'.$securityB."\n";
-                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="expenses'.$i.'"></td>'."\n";
+                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="expenses'.$i.'" class="disable'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'">'.$calloutB."\n";
                         //echo '<td class="border disable'.$i.'"><input type="checkbox" name="wobod'.$i.'"></td>'."\n";
                         echo '<td class="border disable'.$i.'">'.$pholB."\n";
-                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="holnr'.$i.'"></td>'."\n";
-                        echo '<td class="border"><input type="checkbox" name="sick'.$i.'" onclick="disableInput()"></td>'."\n";
-                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="training'.$i.'"></td>'."\n";
+                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="holnr'.$i.'" class="disable'.$i.'"></td>'."\n";
+                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="sick'.$i.'" class="disable'.$i.'"></td>'."\n";
+                        echo '<td class="border disable'.$i.'"><input type="checkbox" name="training'.$i.'" class="disable'.$i.'"></td>'."\n";
                         echo '</tr>'."\n";
                         $startdate = $shortdatex[2].'-'.$shortdatex[1].'-'.$shortdatex[0];
                         $startdate = strtotime('+1 day', strtotime($startdate));
@@ -153,27 +156,33 @@ $css = md5(date("H:i:s"));
                         $i++;
                         $ix++;
                     }
-
+                    if($role == 'Guard') {
+                        echo '<tr class="noborder">';
+                        echo     '<td class="noborder" colspan="3">WOBOD payments</td>';
+                        echo     '<td class="noborder"><input type="text" name="wobod" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>';
+                        echo     '<td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total time for WOBOD payments from prior fortnight.</span></td>';
+                        echo '</tr>';
+                    }
                 ?>
-                <tr class="noborder">
-                    <td class="noborder" colspan="3">WOBOD payments</td>
-                    <td class="noborder"><input type="text" name="extra" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Add the total time for WOBOD payments due.</span></td>
+                <!-- <tr class="noborder">
+                    <td class="noborder" colspan="3">Extra payments (dollars)</td>
+                    <td class="noborder"><input type="text" name="extrad" size="4"></td>
+                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total dollar amount for additional payments, <span style="font-weight: bold;">excluding WOBOD</span>.</span></td>
                 </tr>
                 <tr class="noborder">
-                    <td class="noborder" colspan="3">Extra payments</td>
-                    <td class="noborder"><input type="text" name="extra" size="4"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Add the total time for additional payments, <span style="font-weight: bold;">excluding WOBOD</span>.</span></td>
-                </tr>
+                    <td class="noborder" colspan="3">Extra payments (time)</td>
+                    <td class="noborder"><input type="text" name="extrat" size="4" pattern="[0-9]{2}:[0-9]{2}"></td>
+                    <td colspan="8" class="noborder">&larr; <span style="text-decoration: underline;">Enter the time for additional hours claimed, <span style="font-weight: bold;">excluding WOBOD</span>, where not accounted for already. (Calculated at standard rates.)</span></td>
+                </tr> -->
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Pre-tax deductions</td>
                     <td class="noborder"><input type="text" name="pretax" size="4"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the total pre-tax deductions, such as Maxxia.</span></td>
+                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total pre-tax deductions, such as Maxxia.</span></td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="3">Post-tax deductions</td>
                     <td class="noborder"><input type="text" name="posttax" size="4"></td>
-                    <td colspan="6" class="noborder">&larr;<span style="text-decoration: underline;"> Enter the total post-tax deductions, such as journey insurance.</span></td>
+                    <td colspan="6" class="noborder">&larr; <span style="text-decoration: underline;">Enter the total post-tax deductions, such as journey insurance.</span></td>
                 </tr>
                 <tr class="noborder"><td colspan="5" class="noborder"><input type="submit" value="Calculate" class="button"></td></tr>
                 <input type="hidden" value="<?php echo $rate; ?>" name="rate">
@@ -181,17 +190,41 @@ $css = md5(date("H:i:s"));
                 <input type="hidden" value="<?php echo $date; ?>" name="date">
                 <input type="hidden" value="<?php echo $ls; ?>" name="fn">
                 </form>
+                <tr><td colspan="15">To report issues, head to the <a href="https://github.com/BigJazzz/Pay-Calculator/issues" target="_blank">issue tracker</a></td></tr>
             </table>
         </div>
     </div>
-    <script>
-    function disableInput() {
-            if ($(this).is(':checked')) {
-                $(this).parent().siblings().children().attr("disabled", true);
-            } else {
-                $(this).parent().siblings().children().attr("disabled", false);
-            }
-        };
-    </script>
+    <?php
+    $i = 1;
+    echo '<script>'."\r\n";
+    while($i < 15) {
+        echo '$(\'input[name="sick'.$i.'"]\').click(function() {'."\r\n";
+        echo    'if ($(this).is(\':checked\')) {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", true);'."\r\n";
+        echo            '$(this).prop("disabled", false);'."\r\n";
+        echo        '} else {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", false);'."\r\n";
+        echo        '}'."\r\n";
+        echo '});'."\r\n";
+        echo '$(\'input[name="training'.$i.'"]\').click(function() {'."\r\n";
+        echo    'if ($(this).is(\':checked\')) {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", true);'."\r\n";
+        echo            '$(this).prop("disabled", false);'."\r\n";
+        echo        '} else {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", false);'."\r\n";
+        echo        '}'."\r\n";
+        echo '});'."\r\n";
+        echo '$(\'input[name="holnr'.$i.'"]\').click(function() {'."\r\n";
+        echo    'if ($(this).is(\':checked\')) {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", true);'."\r\n";
+        echo            '$(this).prop("disabled", false);'."\r\n";
+        echo        '} else {'."\r\n";
+        echo            '$(".disable'.$i.'").prop("disabled", false);'."\r\n";
+        echo        '}'."\r\n";
+        echo '});'."\r\n";
+        $i++;
+    }
+    echo '</script>'."\r\n";
+    ?>
 </body>
 </html>
