@@ -1,8 +1,8 @@
 <?php
-if(empty($_POST) || !isset($_POST) || $_POST == '') {
-    header("Location: https://calc.ssby.me");
-    die();
-}
+// if(empty($_POST) || !isset($_POST) || $_POST == '') {
+//     header("Location: https://calc.ssby.me");
+//     die();
+// }
 // if(isset($_GET) && $_GET["t"] != 'y') {
 //     header("Location: https://calc.ssby.me");
 //     die();
@@ -53,11 +53,14 @@ $css = md5(date("H:i:s"));
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- <script src="includes/js.php"></script> -->
     <!-- <script src="includes/js.php?version=<?php echo $css; ?>"></script> -->
+    <?php if(!isset($_COOKIE['alert'])) { ?>
     <script>
-    function msg() {
-        alert("Please enter all start/finish/mileage times in XXXX.\nPlease enter all LU/LB/BU and additional payment times in XX:XX.\nThis calculator doesn't currently support relinquished shifts, or mid-cycle changes to pay rates and allowances.")
-    }
+        alert('If this is your first time using this calculator, please tap the \'i\' button.');
     </script>
+    <?php }; ?>
+    <?php
+        setcookie('alert','seen',time()+(86400 * 30), "/");
+    ?>
 </head>
 <body>
     <div id="body-outer">
@@ -84,27 +87,27 @@ $css = md5(date("H:i:s"));
                     <td>$<?php echo $rate; ?></td>
                 </tr>
                 <tr>
-                    <td colspan="7" style="padding-top: 5px; padding-bottom: 5px;"><input type="button" onclick="msg()" value="Important Information" class="button" style="background-color: red;"> &larr; Recommended if this is your first time using this calculator.</td>
+                    <td colspan="7">&nbsp;</td>
                 </tr>
             </table>
             <table id="timesheet">
-                <tr class="header">
-                    <td>Day</td>
-                    <td>Date</td>
-                    <td>Start</td>
-                    <td>Finish</td>
-                    <td>LU/LB</td>
-                    <td>Build Up</td>
-                    <td>Mileage</td>
-                    <td>Cab/ETR</td>
-                    <td>Security</td>
-                    <td>Expenses</td>
-                    <td>Call Out</td>
-                    <?php //<td>WOBOD</td> ?>
-                    <td>Public Holiday</td>
-                    <td>HOL N/R</td>
-                    <td>Sick</td>
-                    <td>Training</td>
+                <thead class="header">
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Start</th>
+                    <th>Finish</th>
+                    <th>LU/LB</th>
+                    <th>Build Up</th>
+                    <th>Mileage</th>
+                    <th>Cab/ETR</th>
+                    <th>Security</th>
+                    <th>Expenses</th>
+                    <th>Call Out</th>
+                    <?php //<th>WOBOD</th> ?>
+                    <th>Public Holiday</th>
+                    <th>HOL N/R</th>
+                    <th>Sick</th>
+                    <th>Training</th>
                 </tr>
                 <form id="timesheet" action="calculate.php" method="post">
                 <?php
@@ -190,9 +193,23 @@ $css = md5(date("H:i:s"));
                 <input type="hidden" value="<?php echo $date; ?>" name="date">
                 <input type="hidden" value="<?php echo $ls; ?>" name="fn">
                 </form>
-                <tr><td colspan="15">To report issues, head to the <a href="https://github.com/BigJazzz/Pay-Calculator/issues" target="_blank">issue tracker</a></td></tr>
             </table>
         </div>
+        <div id="button">
+            <a href="javascript:void(0)" onclick="openNav()"><img src="images/info.png" style="filter: invert(15%) sepia(83%) saturate(2070%) hue-rotate(341deg) brightness(124%) contrast(93%);"></a>
+        </div>
+        <div id="info">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <h1>Info</h1>
+            <br>
+            <p>&bull; To report issues, head to the <a href="https://github.com/BigJazzz/Pay-Calculator/issues" target="_blank">issue tracker</a></p>
+            <p>&bull; Please enter all start/finish/mileage times in XXXX</p>
+            <p>&bull; Please enter all LU/LB/BU and additional payment times in XX:XX</p>
+            <p>&bull; This calculator doesn't currently support relinquished shifts, or mid-cycle changes to pay rates and allowances</p>
+            <p id="credit">Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
+            </div>
+        </div>
+        <div id="footer">To report issues, head to the <a href="https://github.com/BigJazzz/Pay-Calculator/issues" target="_blank">issue tracker</a></div>
     </div>
     <?php
     $i = 1;
@@ -226,5 +243,16 @@ $css = md5(date("H:i:s"));
     }
     echo '</script>'."\r\n";
     ?>
+    <script>
+        /* Set the width of the side navigation to 250px */
+        function openNav() {
+          document.getElementById("info").style.width = "300px";
+        }
+
+        /* Set the width of the side navigation to 0 */
+        function closeNav() {
+          document.getElementById("info").style.width = "0";
+        }
+    </script>
 </body>
 </html>
